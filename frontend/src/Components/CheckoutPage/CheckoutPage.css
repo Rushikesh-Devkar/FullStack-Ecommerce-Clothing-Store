@@ -1,0 +1,116 @@
+.checkoutpage {
+    margin: 100px 170px;
+  }
+  
+  .checkout-container {
+    width: 100%;
+    max-width: 1000px;
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .checkout-container h1 {
+    margin-bottom: 20px;
+  }
+  
+  .checkout-products {
+    
+    display: grid;
+    grid-template-columns:  1fr 1fr ;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 0px ;
+    color: #454545;
+    font-size: 12px;
+    font-weight: 600;
+  }
+  
+  .checkout-product {
+  
+    margin-bottom: 10px;
+  }
+  
+  .checkout-product-image img {
+    width: 100px;
+    height: auto;
+    margin-right: 10px;
+  }
+  
+  .checkout-summary {
+    border-top: 2px solid #ccc;
+    padding-top: 20px;
+  }
+  
+  .checkout-summary-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+  
+  .checkout-summary-actions {
+    margin-top: 20px;
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  .checkout-summary-back-to-cart {
+    text-decoration: none;
+    color: #fff;
+    background-color: #ff5a5a;
+    padding: 7px 20px;
+    border-radius: 4px;
+    font-size: 14px;
+    margin-right: 5px;
+  }
+  
+  .checkout-summary-back-to-cart:hover {
+    background-color: #e04040;
+  }
+  
+  .checkout-summary-place-order {
+    background-color: #ff5a5a;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-left: 5px;
+  }
+  
+  .checkout-summary-place-order:hover {
+    background-color: #e04040;
+  }
+  
+  .cartitems-remove-icon {
+    width: 10px;
+    height: 10px;
+  }
+  
+  .checkout-form {
+    margin-bottom: 20px;
+  }
+  
+  .checkout-form label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+  
+  .checkout-form input[type="text"],
+  .checkout-form input[type="text"],
+  .checkout-form textarea {
+    display: block;
+    width: 100%;
+    padding: 5px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  
+  .checkout-form textarea {
+    height: 100px;
+  }
