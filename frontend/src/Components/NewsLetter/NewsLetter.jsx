@@ -8,7 +8,7 @@ const NewsLetter = () => {
     e.preventDefault();
     console.log("Signup function executed", email);
     let responseData;
-    await fetch('http://localhost:4000/newsletter', {
+    await fetch('/newsletter', {
       method: "POST",
       headers: {
         Accept: 'application/json',

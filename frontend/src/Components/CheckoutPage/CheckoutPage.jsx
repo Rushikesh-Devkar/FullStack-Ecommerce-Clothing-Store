@@ -53,7 +53,7 @@ const CheckoutPage = () => {
       };
 
       // Send a POST request to the server to place the order
-      await fetch('http://localhost:4000/placeorder', {
+      await fetch('/placeorder', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

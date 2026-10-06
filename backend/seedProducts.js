@@ -40,7 +40,7 @@ for (let i = 1; i <= 36; i++) {
                 ? "Men Green Solid Zippered Full-Zip Slim Fit Bomber Jacket"
                 : "Boys Orange Colourblocked Hooded Sweatshirt",
 
-        image: `http://localhost:4000/images/product_${i}.png`,
+        image: `/images/product_${i}.png`,
 
         category: category,
 

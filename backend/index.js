@@ -3,7 +3,8 @@ dns.setServers(["8.8.8.8", "8.8.4.4"]);
 
 require("dotenv").config();
 
-const port = 4000;
+const port = process.env.PORT || 4000;
+const JWT_SECRET = process.env.JWT_SECRET || "secret_ecom";
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
@@ -27,7 +28,7 @@ mongoose.connect(process.env.MONGO_URI)
 
 //Image storing engine
 const storage = multer.diskStorage({
-    destination: './upload/images',
+    destination: path.join(__dirname, 'upload', 'images'),
     filename: (req,file,cb)=>{
         return cb(null,`${file.fieldname}_${Date.now()}${path.extname(file.originalname)}`)
     }
@@ -36,12 +37,12 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 //Creating upload endpoints for images
-app.use('/images',express.static('upload/images'))
+app.use('/images',express.static(path.join(__dirname, 'upload', 'images')))
 
 app.post('/upload', upload.single('product'), (req, res) => {
     res.json({
         success:1,
-        image_url:`http://localhost:${port}/images/${req.file.filename}`
+        image_url:`/images/${req.file.filename}`
     })
 });
 
@@ -302,7 +303,7 @@ app.post('/signup',async(req,res)=>{
             id:user.id
         }
     }
-    const token = jwt.sign(data,'secret_ecom');
+    const token = jwt.sign(data,JWT_SECRET);
     //sending response to client side after successful registration of a user
     res.json({success:true,token,"message":"User has been registered"});
      
@@ -319,7 +320,7 @@ app.post('/login',async(req,res)=>{
                     id:user.id
                 }
             }
-            const token = jwt.sign(data,'secret_ecom');
+            const token = jwt.sign(data,JWT_SECRET);
            res.json({success:true,token, errors:"You are successfully logged in!"});
         }
         else{
@@ -363,7 +364,7 @@ const fetchUser = async (req,res,next)=>{
     }
     else{
         try{
-            const data = jwt.verify(token,'secret_ecom');
+            const data = jwt.verify(token,JWT_SECRET);
             req.user = data.user;
             next();
         }catch (error) {
@@ -400,10 +401,24 @@ app.post('/getcart',fetchUser,async(req,res)=>{
     res.json(userData.cartData);
 })
 
+// ===== Serve built frontend + admin (single deploy) =====
+const adminDist = path.join(__dirname, '../admin/dist');
+const frontendBuild = path.join(__dirname, '../frontend/build');
+
+app.use('/admin', express.static(adminDist));
+app.get('/admin/*', (req, res) => {
+    res.sendFile(path.join(adminDist, 'index.html'));
+});
+
+app.use(express.static(frontendBuild));
+app.get('*', (req, res) => {
+    res.sendFile(path.join(frontendBuild, 'index.html'));
+});
+
 app.listen(port,(error)=>{
         if(!error)
         {
-            console.log("Server running on port"+port)
+            console.log("Server running on port "+port)
         }
         else{
             console.log("Error :"+error)
